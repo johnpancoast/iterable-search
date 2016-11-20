@@ -1,0 +1,6 @@
+{
+  "name": "johnpancoast/code-challenge",
+  "require": {
+    "symfony/console": "dev-master"
+  }
+}
