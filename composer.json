@@ -2,5 +2,10 @@
   "name": "johnpancoast/code-challenge",
   "require": {
     "symfony/console": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "Pancoast\\CodeChallenge\\": "src"
+    }
   }
 }
