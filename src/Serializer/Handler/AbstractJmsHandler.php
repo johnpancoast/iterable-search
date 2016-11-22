@@ -7,8 +7,7 @@
 
 namespace Pancoast\CodeChallenge\Serializer\Handler;
 
-use JMS\Serializer\Serializer;
-use Pancoast\CodeChallenge\Serializer\boolx;
+use JMS\Serializer\SerializerInterface;
 use Pancoast\CodeChallenge\Serializer\HandlerInterface;
 
 /**
