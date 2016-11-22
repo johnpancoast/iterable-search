@@ -68,9 +68,9 @@ class CsvHandler extends AbstractJmsHandler
      */
     private function strPutCsv($input) {
         // TODO - fix if suboptimal, we're testing
-        $fp = fopen('php://memory', 'r+b');
-        rewind($fp);
+        $fp = fopen('php://temp', 'r+b');
         fputcsv($fp, $input, $this->delimiter, $this->enclosure, $this->escape);
+        rewind($fp);
         $data = rtrim(stream_get_contents($fp), "\n");
         fclose($fp);
 
