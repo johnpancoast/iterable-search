@@ -1,7 +1,10 @@
 {
   "name": "johnpancoast/code-challenge",
   "require": {
-    "symfony/console": "dev-master"
+    "symfony/console": "~3.1",
+    "symfony/yaml": "~3.1",
+    "symfony/serializer": "~3.1",
+    "symfony/options-resolver": "~3.1"
   },
   "autoload": {
     "psr-4": {
