@@ -55,6 +55,10 @@ class Serializer implements SerializerInterface
             throw new \UnexpectedValueException(sprintf("Unknown serialization handler '%s'"));
         }
 
+        if (empty($data)) {
+            return;
+        }
+
         /** @var $handler HandlerInterface */
         $handler = $this->handlers[$handler];
         return $handler->deserialize($data, $type);
