@@ -3,6 +3,7 @@
   "require": {
     "symfony/console": "~3.1",
     "symfony/yaml": "~3.1",
+    "symfony/expression-language": "~3.1",
     "jms/serializer": "~1.4"
   },
   "autoload": {
