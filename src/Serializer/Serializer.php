@@ -30,8 +30,6 @@ class Serializer implements SerializerInterface
 
             $this->handlers[$h->getSupportedFormat()] = $h;
         }
-
-        $this->handlers = $handlers;
     }
 
     /**
@@ -40,7 +38,7 @@ class Serializer implements SerializerInterface
     public function serialize($data, $handler)
     {
         if (!isset($this->handlers[$handler])) {
-            throw new \UnexpectedValueException(sprintf("Unknown serialization handler '%s'"));
+            throw new \UnexpectedValueException(sprintf("Unknown serialization handler '%s'", $handler));
         }
 
         /** @var $handler HandlerInterface */
@@ -59,6 +57,6 @@ class Serializer implements SerializerInterface
 
         /** @var $handler HandlerInterface */
         $handler = $this->handlers[$handler];
-        return $handler->serialize($data, $handler);
+        return $handler->deserialize($data, $type, $handler);
     }
 }
