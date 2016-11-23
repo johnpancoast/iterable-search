@@ -8,7 +8,6 @@
 namespace Pancoast\CodeChallenge\Serializer\Handler;
 
 use JMS\Serializer\SerializerInterface;
-use Pancoast\CodeChallenge\Post;
 
 /**
  * Csv Handler

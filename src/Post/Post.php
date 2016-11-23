@@ -5,7 +5,7 @@
  * @license       Public Domain
  */
 
-namespace Pancoast\CodeChallenge;
+namespace Pancoast\CodeChallenge\Post;
 
 use JMS\Serializer\Annotation as JMS;
 use Pancoast\CodeChallenge\Util;
