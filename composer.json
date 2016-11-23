@@ -4,7 +4,8 @@
     "symfony/console": "~3.1",
     "symfony/yaml": "~3.1",
     "symfony/expression-language": "~3.1",
-    "jms/serializer": "~1.4"
+    "jms/serializer": "~1.4",
+    "johnpancoast/php-common": "~4.1"
   },
   "autoload": {
     "psr-4": {

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "63ac188efc4e495ed415f21daf9118cc",
-    "content-hash": "d788ddc62606c389c9083245cc617049",
+    "hash": "f8acad0b0dc8528bb9a4f35ed9762f89",
+    "content-hash": "46d92b03117e5f56451bbeaeed2266cf",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -344,6 +344,42 @@
                 "xml"
             ],
             "time": "2016-11-13 10:20:11"
+        },
+        {
+            "name": "johnpancoast/php-common",
+            "version": "4.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/johnpancoast/php-common.git",
+                "reference": "81ebfb4829b54714c52ae71a6a454b7add2a878f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/johnpancoast/php-common/zipball/81ebfb4829b54714c52ae71a6a454b7add2a878f",
+                "reference": "81ebfb4829b54714c52ae71a6a454b7add2a878f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Pancoast\\Common\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "John Pancoast",
+                    "email": "johnpancoast@gmail.com"
+                }
+            ],
+            "description": "Common functionality for my PHP apps",
+            "time": "2016-11-23 23:30:59"
         },
         {
             "name": "phpcollection/phpcollection",

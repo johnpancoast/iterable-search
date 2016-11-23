@@ -8,7 +8,7 @@
 namespace Pancoast\CodeChallenge\Post;
 
 use JMS\Serializer\Annotation as JMS;
-use Pancoast\CodeChallenge\Util;
+use Pancoast\Common\Util\Util;
 
 /**
  * A post
