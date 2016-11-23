@@ -43,7 +43,7 @@ class Serializer implements SerializerInterface
 
         /** @var $handler HandlerInterface */
         $handler = $this->handlers[$handler];
-        return $handler->serialize($data, $handler);
+        return $handler->serialize($data);
     }
 
     /**
@@ -57,6 +57,6 @@ class Serializer implements SerializerInterface
 
         /** @var $handler HandlerInterface */
         $handler = $this->handlers[$handler];
-        return $handler->deserialize($data, $type, $handler);
+        return $handler->deserialize($data, $type);
     }
 }

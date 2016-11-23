@@ -34,16 +34,15 @@ interface HandlerInterface
      *
      * @return mixed Serialized data
      */
-    public function serialize($data, $format);
+    public function serialize($data);
 
     /**
      * Deserialize data into a type
      *
      * @param mixed $data
      * @param mixed $type
-     * @param string $format
      *
      * @return mixed Deserialized data
      */
-    public function deserialize($data, $type, $format);
+    public function deserialize($data, $type);
 }

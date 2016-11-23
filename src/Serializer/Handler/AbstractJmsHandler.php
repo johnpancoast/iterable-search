@@ -25,6 +25,10 @@ abstract class AbstractJmsHandler implements HandlerInterface
     /**
      * Get supported format of handler
      *
+     * It's important that our handlers that wrap jms/serializer support the
+     * same formats. Meaning, our JsonHandler that wraps jsm/serializer should
+     * support format 'json' just like it's named there.
+     *
      * @return string
      */
     abstract public function getSupportedFormat();
@@ -50,16 +54,16 @@ abstract class AbstractJmsHandler implements HandlerInterface
     /**
      * {@inheritdoc}
      */
-    public function serialize($data, $format)
+    public function serialize($data)
     {
-        return $this->jmsSerializer->serialize($data, $format);
+        return $this->jmsSerializer->serialize($data, $this->getSupportedFormat());
     }
 
     /**
      * {@inheritdoc}
      */
-    public function deserialize($data, $type, $format)
+    public function deserialize($data, $type)
     {
-        return $this->jmsSerializer->deserialize($data, $type, $format);
+        return $this->jmsSerializer->deserialize($data, $type, $this->getSupportedFormat());
     }
 }

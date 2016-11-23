@@ -89,7 +89,7 @@ class CsvHandler extends AbstractJmsHandler
     /**
      * {@inheritdoc}
      */
-    public function serialize($data, $format)
+    public function serialize($data)
     {
         if (is_object($data)) {
             $data = $this->jmsSerializer->toArray($data);
@@ -101,7 +101,7 @@ class CsvHandler extends AbstractJmsHandler
     /**
      * {@inheritdoc}
      */
-    public function deserialize($data, $type, $format)
+    public function deserialize($data, $type)
     {
         $meta = $this
             ->jmsSerializer
