@@ -24,7 +24,7 @@ class SerializerFactory
     /**
      * Create serializer
      *
-     * @return \JMS\Serializer\Serializer
+     * @return SerializerInterface
      */
     public static function createSerializer()
     {

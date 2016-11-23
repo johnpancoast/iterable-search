@@ -36,7 +36,7 @@ interface SerializerInterface
      * Deserialize data
      *
      * @param mixed $data
-     * @param mixed $type The type to deserialize to
+     * @param object $type The type to deserialize to
      * @param string $handler Handler's supported format string
      *
      * @return mixed
