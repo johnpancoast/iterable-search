@@ -8,6 +8,7 @@
 namespace Pancoast\CodeChallenge\Serializer\Handler;
 
 use JMS\Serializer\SerializerInterface;
+use Pancoast\CodeChallenge\Post;
 
 /**
  * Csv Handler
@@ -62,19 +63,19 @@ class CsvHandler extends AbstractJmsHandler
     /**
      * Given an array, create a csv line using a function similar to PHP's str_getcsv() signature and functionality.
      *
-     * @param        $input
+     * @param array $data
      *
      * @return string
      */
-    private function strPutCsv($input) {
+    private function strPutCsv(array $data = []) {
         // TODO - fix if suboptimal, we're testing
         $fp = fopen('php://temp', 'r+b');
-        fputcsv($fp, $input, $this->delimiter, $this->enclosure, $this->escape);
+        fputcsv($fp, $data, $this->delimiter, $this->enclosure, $this->escape);
         rewind($fp);
-        $data = rtrim(stream_get_contents($fp), "\n");
+        $csv = rtrim(stream_get_contents($fp), "\n");
         fclose($fp);
 
-        return $data;
+        return $csv;
     }
 
     /**
@@ -102,13 +103,22 @@ class CsvHandler extends AbstractJmsHandler
      */
     public function deserialize($data, $type, $format)
     {
-        return $this->jmsSerializer->fromArray(
-            str_getcsv(
-                $data,
-                $this->delimiter,
-                $this->enclosure,
-                $this->escape
-            )
-        , $type);
+        $meta = $this
+            ->jmsSerializer
+            ->getMetadataFactory()
+            ->getMetadataForClass($type);
+
+        $keys = array_map(function($propertyMeta, $values = null){
+            return $propertyMeta->serializedName ?: $propertyMeta->name;
+        }, $meta->propertyMetadata);
+
+        $values = str_getcsv(
+            $data,
+            $this->delimiter,
+            $this->enclosure,
+            $this->escape
+        );
+
+        return $this->jmsSerializer->fromArray(array_combine($keys, $values), $type);
     }
 }
