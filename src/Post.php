@@ -8,6 +8,7 @@
 namespace Pancoast\CodeChallenge;
 
 use JMS\Serializer\Annotation as JMS;
+use Pancoast\CodeChallenge\Util;
 
 /**
  * A post
@@ -93,7 +94,7 @@ class Post
      */
     public function setId($id)
     {
-        $this->validateType($id, 'int', '$id');
+        Util::validateType($id, 'int', '$id');
         $this->id = $id;
         return $this;
     }
@@ -117,7 +118,7 @@ class Post
      */
     public function setTitle($title)
     {
-        $this->validateType($title, 'string', '$title');
+        Util::validateType($title, 'string', '$title');
         $this->title = $title;
         return $this;
     }
@@ -141,7 +142,7 @@ class Post
      */
     public function setPrivate($private)
     {
-        $this->validateType($private, 'bool', '$private');
+        Util::validateType($private, 'bool', '$private');
         $this->private = (bool)$private;
         return $this;
     }
@@ -163,7 +164,7 @@ class Post
      */
     public function setPrivacyFromString($privacy)
     {
-        $this->validateType($privacy, 'string', '$privacy');
+        Util::validateType($privacy, 'string', '$privacy');
 
         if ($privacy != 'private' && $privacy != 'public') {
             throw new \InvalidArgumentException("\$privacy must be one of: private, public");
@@ -191,7 +192,7 @@ class Post
      */
     public function setLikes($likes)
     {
-        $this->validateType($likes, 'int', '$likes');
+        Util::validateType($likes, 'int', '$likes');
         $this->likes = $likes;
         return $this;
     }
@@ -215,7 +216,7 @@ class Post
      */
     public function setViews($views)
     {
-        $this->validateType($views, 'int', '$views');
+        Util::validateType($views, 'int', '$views');
         $this->views = $views;
         return $this;
     }
@@ -239,7 +240,7 @@ class Post
      */
     public function setComments($comments)
     {
-        $this->validateType($comments, 'int', '$comments');
+        Util::validateType($comments, 'int', '$comments');
         $this->comments = $comments;
         return $this;
     }
@@ -286,62 +287,8 @@ class Post
      */
     public function setTimestampFromString($timestamp)
     {
-        $this->validateType($timestamp, 'string', '$timestamp');
+        Util::validateType($timestamp, 'string', '$timestamp');
         $this->setTimestamp(new \DateTime($timestamp));
         return $this;
-    }
-
-    /**
-     * Simple helper to check if value is of type
-     *
-     * @todo Move this somewhere sharable if needed
-     * @param $value
-     * @param $type
-     *
-     * @return bool
-     */
-    private function isType($value, $type)
-    {
-        switch ($type) {
-            case 'bool':
-                return is_bool($value);
-            case 'int':
-                return is_int($value);
-            case 'string':
-                return is_string($value);
-        }
-    }
-
-    /**
-     * Helper to validate that a value for a field is of a cerain type
-     *
-     * @todo Move this somewhere sharable if needed
-     * @param      $value
-     * @param      $type
-     * @param null $field
-     * @throws \InvalidArgumentException If type not expected value
-     */
-    private function validateType($value, $type, $field = null)
-    {
-        if (!$this->isType($value, $type)) {
-            if ($field) {
-                throw new \InvalidArgumentException(
-                    sprintf(
-                        'Expected type %s for "%s". Received value "%s".',
-                        $type,
-                        $field,
-                        $value
-                    )
-                );
-            } else {
-                throw new \InvalidArgumentException(
-                    sprintf(
-                        'Expected type %s. Received value "%s".',
-                        $type,
-                        $value
-                    )
-                );
-            }
-        }
     }
 }
