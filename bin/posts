@@ -1,0 +1,17 @@
+#!/usr/bin/env php
+<?php
+/**
+ * @package johnpancoast/code-challenge
+ * @copyright (c) 2016 John Pancoast
+ * @author John Pancoast <johnpancoaster@gmail.com>
+ * @license Public Domain
+ */
+
+require __DIR__ . '/../vendor/autoload.php';
+
+use Symfony\Component\Console\Application;
+use Pancoast\CodeChallenge\Command\PostsCommand;
+
+$application = new Application();
+$application->add(new PostsCommand());
+$application->run();
