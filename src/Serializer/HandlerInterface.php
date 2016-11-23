@@ -45,4 +45,6 @@ interface HandlerInterface
      * @return mixed Deserialized data
      */
     public function deserialize($data, $type);
+
+    // TODO perhaps add a method for the handlers to auto-determine if they can support se(dese)rialization.
 }
