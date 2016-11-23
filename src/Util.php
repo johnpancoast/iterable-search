@@ -45,7 +45,7 @@ class Util
      */
     public static function validateType($value, $type, $field = null)
     {
-        if (self::isType($value, $type)) {
+        if (!self::isType($value, $type)) {
             if ($field) {
                 throw new \InvalidArgumentException(
                     sprintf(
