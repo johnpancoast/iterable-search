@@ -36,9 +36,6 @@ class Post
     /**
      * @var bool
      *
-     * Note that our internal property value and th serialized value will value will differ.
-     * See the Accessor annotation below, and the methods specified, for details.
-     *
      * @JMS\Expose
      * @JMS\Type("string")
      * @JMS\SerializedName("privacy")
