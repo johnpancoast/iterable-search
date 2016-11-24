@@ -26,8 +26,8 @@ abstract class AbstractJmsHandler implements HandlerInterface
      * Get supported format of handler
      *
      * It's important that our handlers that wrap jms/serializer support the
-     * same formats. Meaning, our JsonHandler that wraps jsm/serializer should
-     * support format 'json' just like it's named there.
+     * same formats. Meaning, our JsonHandler that wraps jsm/serializer's 'json'
+     * format should support 'json' locally.
      *
      * @return string
      */
