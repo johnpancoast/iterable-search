@@ -5,7 +5,7 @@
  * @license       Public Domain
  */
 
-namespace Pancoast\CodeChallenge\Serializer;
+namespace Pancoast\DataProcessor\Serializer;
 
 /**
  * Serializer

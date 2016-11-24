@@ -5,7 +5,7 @@
  * @license       Public Domain
  */
 
-namespace Pancoast\CodeChallenge\Serializer\Handler;
+namespace Pancoast\DataProcessor\Serializer\Handler;
 
 use JMS\Serializer\SerializerInterface;
 

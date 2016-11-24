@@ -10,7 +10,7 @@
 require __DIR__ . '/../vendor/autoload.php';
 
 use Symfony\Component\Console\Application;
-use Pancoast\CodeChallenge\Command\PostsCommand;
+use Pancoast\DataProcessor\Command\PostsCommand;
 
 $application = new Application();
 $application->add(new PostsCommand());

@@ -5,14 +5,14 @@
  * @license       Public Domain
  */
 
-namespace Pancoast\CodeChallenge\Serializer;
+namespace Pancoast\DataProcessor\Serializer;
 
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use JMS\Serializer\SerializerBuilder;
-use Pancoast\CodeChallenge\Serializer\Handler\CsvHandler;
-use Pancoast\CodeChallenge\Serializer\Handler\JsonHandler;
-use Pancoast\CodeChallenge\Serializer\Handler\XmlHandler;
-use Pancoast\CodeChallenge\Serializer\Handler\YamlHandler;
+use Pancoast\DataProcessor\Serializer\Handler\CsvHandler;
+use Pancoast\DataProcessor\Serializer\Handler\JsonHandler;
+use Pancoast\DataProcessor\Serializer\Handler\XmlHandler;
+use Pancoast\DataProcessor\Serializer\Handler\YamlHandler;
 
 /**
  * Factory to create serializer

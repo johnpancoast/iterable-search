@@ -6,7 +6,7 @@
  */
 
 
-namespace Pancoast\CodeChallenge\Serializer;
+namespace Pancoast\DataProcessor\Serializer;
 
 /**
  * A serializer handler handles serialization (doy)
