@@ -6,6 +6,7 @@
  */
 
 namespace Pancoast\DataProcessor;
+use Pancoast\DataProcessor\Exception\RuleResultException;
 
 /**
  * A rule result is what happens after a rule passes
@@ -16,6 +17,8 @@ interface RuleResultInterface
 {
     /**
      * Run the result
+     *
+     * @throws RuleResultException If internal exception occurs
      */
     public function run();
 }
