@@ -5,7 +5,6 @@
  * @license       Public Domain
  */
 
-
 namespace Pancoast\CodeChallenge\Serializer;
 
 /**
