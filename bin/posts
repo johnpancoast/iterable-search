@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 /**
- * @package johnpancoast/code-challenge
+ * @package johnpancoast/data-processor
  * @copyright (c) 2016 John Pancoast
  * @author John Pancoast <johnpancoaster@gmail.com>
  * @license Public Domain

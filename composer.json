@@ -1,5 +1,5 @@
 {
-  "name": "johnpancoast/code-challenge",
+  "name": "johnpancoast/data-processor",
   "require": {
     "symfony/console": "~3.1",
     "symfony/yaml": "~3.1",

@@ -1,6 +1,7 @@
-code-challenge
+data-processor
 ==============
-A CLI command allowing processing of files. Implementation that matches the directions in instructions.txt
+A CLI command allowing you to process data from a data source, see if
+data matches specific rules, and output to various locations.
 
 # To run
 *todo*

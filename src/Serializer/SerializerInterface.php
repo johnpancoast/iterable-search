@@ -1,6 +1,6 @@
 <?php
 /**
- * @package       johnpancoast/code-challenge
+ * @package       johnpancoast/data-processor
  * @copyright (c) 2016 John Pancoast
  * @license       Public Domain
  */
