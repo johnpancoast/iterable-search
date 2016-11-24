@@ -60,24 +60,6 @@ class CsvHandler extends AbstractJmsHandler
     }
 
     /**
-     * Given an array, create a csv line using a function similar to PHP's str_getcsv() signature and functionality.
-     *
-     * @param array $data
-     *
-     * @return string
-     */
-    private function strPutCsv(array $data = []) {
-        // TODO - fix if suboptimal, we're testing
-        $fp = fopen('php://temp', 'r+b');
-        fputcsv($fp, $data, $this->delimiter, $this->enclosure, $this->escape);
-        rewind($fp);
-        $csv = rtrim(stream_get_contents($fp), "\n");
-        fclose($fp);
-
-        return $csv;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function getSupportedFormat()
@@ -119,5 +101,23 @@ class CsvHandler extends AbstractJmsHandler
         );
 
         return $this->jmsSerializer->fromArray(array_combine($keys, $values), $type);
+    }
+
+    /**
+     * Given an array, create a csv line using a function similar to PHP's str_getcsv() signature and functionality.
+     *
+     * @param array $data
+     *
+     * @return string
+     */
+    private function strPutCsv(array $data = []) {
+        // TODO - fix if suboptimal, we're testing
+        $fp = fopen('php://temp', 'r+b');
+        fputcsv($fp, $data, $this->delimiter, $this->enclosure, $this->escape);
+        rewind($fp);
+        $csv = rtrim(stream_get_contents($fp), "\n");
+        fclose($fp);
+
+        return $csv;
     }
 }
