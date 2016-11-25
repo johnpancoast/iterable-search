@@ -7,6 +7,7 @@
 
 namespace Pancoast\DataProcessor\Rule;
 
+use Pancoast\Common\Util\Util;
 use Pancoast\DataProcessor\Expression\ExpressionLanguageProvider;
 use Pancoast\DataProcessor\RuleInterface;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
@@ -19,28 +20,49 @@ use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
  */
 class ExpressionRule implements RuleInterface
 {
-    private $rule;
-    private $el;
+    /**
+     * @var ExpressionLanguage
+     */
+    private $exlang;
+
+    /**
+     * @var string
+     */
+    private $expression;
+
+    /**
+     * @var string
+     */
     private $baseName;
 
-    public function __construct($rule, $baseName)
+    /**
+     * Constructor
+     *
+     * @param ExpressionLanguage $expressionLanguage
+     * @param string             $expressionRule
+     * @param string             $baseName
+     */
+    public function __construct(
+        ExpressionLanguage $expressionLanguage,
+        $expressionRule,
+        $baseName
+    )
     {
-        // TODO inject me
-        $this->el = new ExpressionLanguage(
-            null,
-            [
-                new ExpressionLanguageProvider(),
-            ]
-        );
+        Util::validateType($expressionRule, 'string', '$expressionRule');
+        Util::validateType($baseName, 'string', '$baseName');
 
-        $this->rule = $rule;
+        $this->exlang = $expressionLanguage;
+        $this->expression = $expressionRule;
         $this->baseName = $baseName;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function true($value)
     {
-        return $this->el->evaluate(
-            $this->rule,
+        return $this->exlang->evaluate(
+            $this->expression,
             [
                 $this->baseName => $value
             ]
