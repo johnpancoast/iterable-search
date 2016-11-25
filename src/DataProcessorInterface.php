@@ -26,15 +26,6 @@ interface DataProcessorInterface
     public function setDataProvider(DataProviderInterface $dataProvider);
 
     /**
-     * Set serializer
-     *
-     * @param SerializerInterface $serializer
-     *
-     * @return mixed
-     */
-    public function setSerializer(SerializerInterface $serializer);
-
-    /**
      * Set rule handlers
      *
      * @param RuleHandlerInterface[] $ruleHandlers Array of rule handlers
