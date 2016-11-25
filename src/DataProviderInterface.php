@@ -45,5 +45,5 @@ interface DataProviderInterface extends \Iterator
      *
      * @return object An instance of the $className passed to self::setDeserializedClassName($className)
      */
-    public function deserialize();
+    public function deserialized();
 }

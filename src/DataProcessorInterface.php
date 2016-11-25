@@ -7,7 +7,8 @@
 
 namespace Pancoast\DataProcessor;
 
-use Pancoast\DataProcessor\Serializer\SerializerInterface;
+use Pancoast\DataProcessor\Exception\RuleException;
+use Pancoast\DataProcessor\Exception\RuleResultException;
 
 /**
  * Data processor iterates a data provider and deserializes each iteration to a type specified, then runs rule handlers.
@@ -36,6 +37,9 @@ interface DataProcessorInterface
 
     /**
      * Process data
+     *
+     * @throws RuleException Exception for a failing rule
+     * @throws RuleResultException Exception for a failing rule result
      */
     public function process();
 }
