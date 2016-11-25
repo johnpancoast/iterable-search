@@ -37,7 +37,7 @@ class ExpressionRule implements RuleInterface
         $this->baseName = $baseName;
     }
 
-    public function passes($value)
+    public function true($value)
     {
         return $this->el->evaluate(
             $this->rule,

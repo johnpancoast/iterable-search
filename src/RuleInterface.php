@@ -24,5 +24,5 @@ interface RuleInterface
      *
      * @return bool
      */
-    public function passes($value);
+    public function true($value);
 }
