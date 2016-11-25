@@ -6,6 +6,7 @@
  */
 
 namespace Pancoast\DataProcessor;
+
 use Pancoast\DataProcessor\Exception\RuleResultException;
 
 /**
@@ -16,9 +17,10 @@ use Pancoast\DataProcessor\Exception\RuleResultException;
 interface RuleResultInterface
 {
     /**
-     * Run the result
+     * Run the result for $value
      *
+     * @param mixed $value
      * @throws RuleResultException If internal exception occurs
      */
-    public function run();
+    public function run($value);
 }
