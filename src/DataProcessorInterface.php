@@ -7,8 +7,10 @@
 
 namespace Pancoast\DataProcessor;
 
+use Pancoast\DataProcessor\Serializer\SerializerInterface;
+
 /**
- * Data processor contract
+ * Data processor iterates a data provider and deserializes each iteration to a type specified, then runs rule handlers.
  *
  * @author John Pancoast <johnpancoaster@gmail.com>
  */
@@ -24,6 +26,15 @@ interface DataProcessorInterface
     public function setDataProvider(DataProviderInterface $dataProvider);
 
     /**
+     * Set serializer
+     *
+     * @param SerializerInterface $serializer
+     *
+     * @return mixed
+     */
+    public function setSerializer(SerializerInterface $serializer);
+
+    /**
      * Set rule handlers
      *
      * @param RuleHandlerInterface[] $ruleHandlers Array of rule handlers
@@ -34,8 +45,6 @@ interface DataProcessorInterface
 
     /**
      * Process data
-     *
-     * @return mixed
      */
     public function process();
 }
