@@ -17,11 +17,11 @@ interface DataProcessorInterface
     /**
      * Set data provider
      *
-     * @param DataProviderInterface $provider
+     * @param DataProviderInterface $dataProvider
      *
      * @return $this
      */
-    public function setDataProvider(DataProviderInterface $provider);
+    public function setDataProvider(DataProviderInterface $dataProvider);
 
     /**
      * Set rule handlers
