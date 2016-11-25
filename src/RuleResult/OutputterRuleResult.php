@@ -8,8 +8,7 @@
 namespace Pancoast\DataProcessor\RuleResult;
 
 use Pancoast\Common\Util\Util;
-use Pancoast\DataProcessor\Exception\RuleResultException;
-use Pancoast\DataProcessor\RuleResultInterface;
+use Pancoast\DataProcessor\AbstractRuleResult;
 use Pancoast\DataProcessor\Serializer\SerializerInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -18,7 +17,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  *
  * @author John Pancoast <johnpancoaster@gmail.com>
  */
-class OutputterRuleResult implements RuleResultInterface
+class OutputterRuleResult extends AbstractRuleResult
 {
     /**
      * @var OutputInterface
@@ -58,7 +57,7 @@ class OutputterRuleResult implements RuleResultInterface
     /**
      * {@inheritdoc}
      */
-    public function run($value)
+    public function runResult($value)
     {
         $this->output->write($this->serializer->serialize($value, $this->serializedFormat));
     }
