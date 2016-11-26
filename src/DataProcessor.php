@@ -49,6 +49,9 @@ class DataProcessor implements DataProcessorInterface
         $this->validateRuleHandlers();
 
         foreach ($this->dataProvider as $iteration) {
+            if (empty($iteration)) {
+                continue;
+            }
 
             $obj = $this->dataProvider->deserialized();
 
