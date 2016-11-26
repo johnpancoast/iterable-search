@@ -23,7 +23,7 @@ class ExpressionRule implements RuleInterface
     /**
      * @var ExpressionLanguage
      */
-    private $expLang;
+    private $exprLang;
 
     /**
      * @var string
@@ -51,7 +51,7 @@ class ExpressionRule implements RuleInterface
         Util::validateType($expressionRule, 'string', '$expressionRule');
         Util::validateType($expressionRoot, 'string', '$expressionRoot');
 
-        $this->expLang = $expressionLanguage;
+        $this->exprLang = $expressionLanguage;
         $this->expression = $expressionRule;
         $this->expressionRoot = $expressionRoot;
     }
@@ -61,7 +61,7 @@ class ExpressionRule implements RuleInterface
      */
     public function true($value)
     {
-        return $this->expLang->evaluate(
+        return $this->exprLang->evaluate(
             $this->expression,
             [
                 $this->expressionRoot => $value
