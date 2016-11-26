@@ -69,6 +69,10 @@ trait DataProviderTrait
      */
     public function deserialized()
     {
+        if (!$this->serializer) {
+            throw new \LogicException("Cannot deserialize without a serializer");
+        }
+
         return $this->serializer->deserialize(
             $this->current(),
             $this->className,
