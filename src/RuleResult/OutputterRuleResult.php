@@ -59,6 +59,6 @@ class OutputterRuleResult extends AbstractRuleResult
      */
     public function runResult($value)
     {
-        $this->output->write($this->serializer->serialize($value, $this->serializedFormat));
+        $this->output->writeln($this->serializer->serialize($value, $this->serializedFormat));
     }
 }
