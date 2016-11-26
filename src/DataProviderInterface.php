@@ -6,9 +6,10 @@
  */
 
 namespace Pancoast\DataProcessor;
+use Pancoast\DataProcessor\Serializer\SerializerInterface;
 
 /**
- * An iterator that provides data and specifies its current format
+ * A data provider is an iterator that can deserialize each iteration into an object
  *
  * @author John Pancoast <johnpancoaster@gmail.com>
  */
@@ -38,12 +39,12 @@ interface DataProviderInterface extends \Iterator
      *
      * @return $this
      */
-    public function setDeserializedClassName($className);
+    public function setClassName($className);
 
     /**
      * Get current iteration deserialized
      *
-     * @return object An instance of the $className passed to self::setDeserializedClassName($className)
+     * @return object An instance of the $className passed to self::setClassName($className)
      */
     public function deserialized();
 }
