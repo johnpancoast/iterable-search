@@ -16,8 +16,12 @@ use Pancoast\DataProcessor\RuleHandlerInterface;
 use Pancoast\DataProcessor\RuleResult\OutputterRuleResult;
 use Pancoast\DataProcessor\Serializer\Format;
 use Pancoast\DataProcessor\Serializer\SerializerFactory;
+use Symfony\Component\Console\Exception\InvalidOptionException;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Command to run rules against iterations of data
@@ -29,7 +33,7 @@ class EvaluateCommand extends BaseCommand
     /**
      * @var \Symfony\Component\ExpressionLanguage\ExpressionLanguage
      */
-    private $expLang;
+    private $exprLang;
 
     /**
      * @var SerializerInterface
@@ -45,7 +49,7 @@ class EvaluateCommand extends BaseCommand
      * Keys for the N'th expression and output command options
      */
     const EXPRESSION_OPTION_KEY = 'expr';
-    const OUTPUT_OPTIONT_KEY = 'out';
+    const OUTPUT_OPTION_KEY = 'out';
 
     /**
      * {@inheritdoc}
@@ -54,7 +58,7 @@ class EvaluateCommand extends BaseCommand
     {
         parent::__construct($name);
 
-        $this->expLang = ExpressionLanguageFactory::createInstance();
+        $this->exprLang = ExpressionLanguageFactory::createInstance();
         $this->serializer = SerializerFactory::createSerializer();
     }
 
@@ -66,26 +70,36 @@ class EvaluateCommand extends BaseCommand
         $this
             ->setName("evaluate")
             ->setDescription("Evaluate rules against iterations of data and do something if true")
-            ->addArgument(
-                "input_csv",
-                InputArgument::REQUIRED,
+            ->addOption(
+                "input-csv",
+                null,
+                InputOption::VALUE_REQUIRED,
                 "A csv file containing data to iterate"
             )
-            ->addArgument(
-                "data_class",
-                InputArgument::REQUIRED,
+            ->addOption(
+                "data-class",
+                null,
+                InputOption::VALUE_REQUIRED,
                 "The class that each iteration will be de-serialized to"
             )
-            ->addArgument(
-                "expression_root",
-                InputArgument::REQUIRED,
-                "The root of the data you'll use when using expression language (e.g., The expression 'post.created_by' has root of 'post'))"
+            ->addOption(
+                "expr-root",
+                null,
+                InputOption::VALUE_REQUIRED,
+                "The root of the data you specify for using expression language (e.g., The expression 'post.created_by' has root of 'post'))"
             )
-            ->addArgument(
-                "output_format",
-                InputArgument::OPTIONAL,
+            ->addOption(
+                "output-format",
+                null,
+                InputOption::VALUE_REQUIRED,
                 sprintf("Output format. Available: %s", implode(', ', Format::getFormats())),
                 Format::CSV
+            )
+            ->addOption(
+                "config-path",
+                "c",
+                InputOption::VALUE_REQUIRED,
+                "A yaml config file holding command options values. Useful for shortening your CLI commands. Values passed in CLI take precedence."
             )
         ;
 
@@ -101,11 +115,45 @@ class EvaluateCommand extends BaseCommand
             );
 
             $this->addOption(
-                sprintf("%s%s", self::OUTPUT_OPTIONT_KEY, $i),
+                sprintf("%s%s", self::OUTPUT_OPTION_KEY, $i),
                 null,
                 InputOption::VALUE_OPTIONAL,
                 "N'th output"
             );
+        }
+    }
+
+    /**
+     * Initialize values
+     *
+     * Note that command argument values take precedence over those in config
+     *
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     */
+    protected function initialize(InputInterface $input, OutputInterface $output)
+    {
+        parent::initialize($input, $output);
+        $this->loadConfigFile();
+        $this->validateRequiredOptions();
+    }
+
+    /**
+     * Load config file
+     */
+    private function loadConfigFile()
+    {
+        if (!$path = $this->input->getOption('config-path')) {
+            return;
+        }
+
+        $config = Yaml::parse(file_get_contents($path));
+
+        // Note that command argument values take precedence over those in config
+        foreach ($config as $k => $v) {
+            if (!$this->input->getOption($k)) {
+                $this->input->setOption($k, $v);
+            }
         }
     }
 
@@ -131,6 +179,23 @@ class EvaluateCommand extends BaseCommand
     }
 
     /**
+     * Create file provider
+     *
+     * @param string $format
+     * @return FileProvider
+     */
+    private function createFileProvider($format = Format::CSV)
+    {
+        $provider = new FileProvider($this->input->getOption('input-csv'), 'r');
+        $provider
+            ->setClassName($this->input->getOption('data-class'))
+            ->setFormat($format)
+            ->setSerializer(SerializerFactory::createSerializer());
+
+        return $provider;
+    }
+
+    /**
      * Create rule handlers
      *
      * @return RuleHandlerInterface[] Array of RuleHandlerInterface's
@@ -141,22 +206,22 @@ class EvaluateCommand extends BaseCommand
 
         for ($i = 0; $i < self::RULE_OPTION_AMT; $i++) {
             $ekey = sprintf('%s%s', self::EXPRESSION_OPTION_KEY, $i);
-            $okey = sprintf('%s%s', self::OUTPUT_OPTIONT_KEY, $i);
+            $okey = sprintf('%s%s', self::OUTPUT_OPTION_KEY, $i);
 
-            if (!isset($this->options[$ekey])) {
+            if (!$this->input->getOption($ekey)) {
                 continue;
             }
 
             // assume initialization validated that we have both expression and output
-            $exp = $this->options[$ekey];
-            $out = isset($this->options[$okey]) ? $this->options[$okey] : null;
+            $exp = $this->input->getOption($ekey);
+            $out = $this->input->hasOption($okey) ? $this->input->getOption($okey) : null;
 
             // TODO load output based on user's choice, for now its outputting to STDOUT
 
             $handlers[] = new RuleHandler(
-                new ExpressionRule($this->expLang, $exp, $this->arguments['expression_root']),
+                new ExpressionRule($this->exprLang, $exp, $this->input->getOption('expr-root')),
                 [
-                    new OutputterRuleResult($this->output, $this->serializer, $this->arguments['output_format']),
+                    new OutputterRuleResult($this->output, $this->serializer, $this->input->getOption('output-format')),
                 ]
             );
         }
@@ -165,19 +230,34 @@ class EvaluateCommand extends BaseCommand
     }
 
     /**
-     * Create file provider
+     * Get required options
      *
-     * @param string $format
-     * @return FileProvider
+     * Symfony treats "options" as optional according to doctext, however, we're only using options to allow for
+     * flexibility in how values can be set (command args or config file) so we still define necessary options.
+     *
+     * @return array
      */
-    private function createFileProvider($format = Format::CSV)
+    private function getRequiredOptions()
     {
-        $provider = new FileProvider($this->arguments['input_csv'], 'r');
-        $provider
-            ->setClassName($this->arguments['data_class'])
-            ->setFormat($format)
-            ->setSerializer(SerializerFactory::createSerializer());
+        return [
+            'input-csv',
+            'data-class',
+            'expr-root',
+            'output-format'
+        ];
+    }
 
-        return $provider;
+    /**
+     * Validate required options are here
+     *
+     * @throws InvalidOptionException
+     */
+    private function validateRequiredOptions()
+    {
+        foreach ($this->getRequiredOptions() as $o) {
+            if (!$this->input->hasOption($o) || !$this->input->getOption($o)) {
+                throw new InvalidOptionException(sprintf("Missing required option '%s'", $o));
+            }
+        }
     }
 }

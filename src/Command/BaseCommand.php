@@ -50,9 +50,6 @@ abstract class BaseCommand extends Command
     {
         $this->input = $input;
         $this->output = $output;
-
-        $this->options = $input->getOptions();
-        $this->arguments = $input->getArguments();
     }
 
     /**
