@@ -41,7 +41,6 @@ class SerializerFactory
         $serializer->registerHandlers([
             new CsvHandler($jmsSerializer),
             new JsonHandler($jmsSerializer),
-            new YamlHandler($jmsSerializer),
             new XmlHandler($jmsSerializer),
         ]);
 

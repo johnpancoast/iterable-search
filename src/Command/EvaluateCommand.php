@@ -83,7 +83,7 @@ class EvaluateCommand extends BaseCommand
             ->addArgument(
                 "output_format",
                 InputArgument::OPTIONAL,
-                "Output format (csv, json, xml, yaml)",
+                "Output format (csv, json, xml)",
                 "csv"
             )
         ;
