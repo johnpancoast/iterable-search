@@ -10,7 +10,7 @@ namespace Pancoast\DataProcessor;
 /**
  * A rule for a value
  *
- * The rule itself is implementation specific and the self::passes($value) method should return if
+ * The rule itself is implementation specific and the self::true($value) method should return if
  * the value passes the rule.
  *
  * @author John Pancoast <johnpancoaster@gmail.com>
