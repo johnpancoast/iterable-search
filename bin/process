@@ -10,8 +10,8 @@
 require __DIR__ . '/../vendor/autoload.php';
 
 use Symfony\Component\Console\Application;
-use Pancoast\DataProcessor\Command\PostsCommand;
+use Pancoast\DataProcessor\Command\EvaluateCommand;
 
 $application = new Application();
-$application->add(new PostsCommand());
+$application->add(new EvaluateCommand());
 $application->run();
