@@ -35,8 +35,16 @@ class EvaluateCommand extends BaseCommand
      */
     private $serializer;
 
-    // Amount of rule options we allow
+    /**
+     * Amount of rule options we allow
+     */
     const RULE_OPTION_AMT = 10;
+
+    /**
+     * Keys for the N'th expression and output command options
+     */
+    const EXPRESSION_OPTION_KEY = 'expr';
+    const OUTPUT_OPTIONT_KEY = 'out';
 
     /**
      * {@inheritdoc}
@@ -65,12 +73,12 @@ class EvaluateCommand extends BaseCommand
             ->addArgument(
                 "data_class",
                 InputArgument::REQUIRED,
-                "The class that each iteration will be deserialized to"
+                "The class that each iteration will be de-serialized to"
             )
             ->addArgument(
-                "data_root",
+                "expression_root",
                 InputArgument::REQUIRED,
-                "The root of the data when using expression language (e.g., post.create_by has 'post' root))"
+                "The root of the data you'll use when using expression language (e.g., The expression 'post.created_by' has root of 'post'))"
             )
             ->addArgument(
                 "output_format",
@@ -85,15 +93,15 @@ class EvaluateCommand extends BaseCommand
         //      cases but not all, so fix
         for ($i = 0; $i < self::RULE_OPTION_AMT; $i++) {
             $this->addOption(
-                sprintf("expression%s", $i),
-                sprintf("e%s", $i),
+                sprintf("%s%s", self::EXPRESSION_OPTION_KEY, $i),
+                null,
                 InputOption::VALUE_OPTIONAL,
                 "N'th expression"
             );
 
             $this->addOption(
-                sprintf("output%s", $i),
-                sprintf("o%s", $i),
+                sprintf("%s%s", self::OUTPUT_OPTIONT_KEY, $i),
+                null,
                 InputOption::VALUE_OPTIONAL,
                 "N'th output"
             );
@@ -131,8 +139,8 @@ class EvaluateCommand extends BaseCommand
         $handlers = [];
 
         for ($i = 0; $i < self::RULE_OPTION_AMT; $i++) {
-            $ekey = sprintf('expression%s', $i);
-            $okey = sprintf('output%s', $i);
+            $ekey = sprintf('%s%s', self::EXPRESSION_OPTION_KEY, $i);
+            $okey = sprintf('%s%s', self::OUTPUT_OPTIONT_KEY, $i);
 
             if (!isset($this->options[$ekey])) {
                 continue;
@@ -145,7 +153,7 @@ class EvaluateCommand extends BaseCommand
             // TODO load output based on user's choice, for now its outputting to STDOUT
 
             $handlers[] = new RuleHandler(
-                new ExpressionRule($this->expLang, $exp, $this->arguments['data_root']),
+                new ExpressionRule($this->expLang, $exp, $this->arguments['expression_root']),
                 [
                     new OutputterRuleResult($this->output, $this->serializer, $this->arguments['output_format']),
                 ]
