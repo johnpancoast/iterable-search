@@ -22,9 +22,9 @@ class RuleHandler implements RuleHandlerInterface
     protected $rule;
 
     /**
-     * @var RuleResultInterface
+     * @var RuleResultInterface[]|array
      */
-    protected $ruleResults;
+    protected $ruleResults = [];
 
     /**
      * Constructor
