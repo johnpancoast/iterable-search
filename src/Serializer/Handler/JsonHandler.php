@@ -7,6 +7,8 @@
 
 namespace Pancoast\DataProcessor\Serializer\Handler;
 
+use Pancoast\DataProcessor\Serializer\Format;
+
 /**
  * Json Handler
  *
@@ -19,6 +21,6 @@ class JsonHandler extends AbstractJmsHandler
      */
     public function getSupportedFormat()
     {
-        return 'json';
+        return Format::JSON;
     }
 }

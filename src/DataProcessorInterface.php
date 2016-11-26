@@ -36,7 +36,7 @@ interface DataProcessorInterface
     public function setRuleHandlers(array $ruleHandlers = []);
 
     /**
-     * Process data
+     * Process data by running each of the rule handlers against each iteration of data from the provider.
      *
      * @throws RuleException Exception for a failing rule
      * @throws RuleResultException Exception for a failing rule result

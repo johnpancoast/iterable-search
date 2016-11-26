@@ -16,7 +16,7 @@ namespace Pancoast\DataProcessor\Serializer;
 interface HandlerInterface
 {
     /**
-     * @return string Supported format of this handler
+     * @return string Supported format of this handler, one of the {@see Format} constants.
      */
     public function getSupportedFormat();
 

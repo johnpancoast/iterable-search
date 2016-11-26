@@ -16,21 +16,10 @@ namespace Pancoast\DataProcessor\Serializer;
  */
 class Serializer implements SerializerInterface
 {
-    private $handlers = [];
-
     /**
-     * {@inheritdoc}
+     * @var HandlerInterface[]
      */
-    public function registerHandlers(array $handlers)
-    {
-        foreach ($handlers as $h) {
-            if (!$h instanceof HandlerInterface) {
-                throw new \InvalidArgumentException("\$handlers must be an array of HandlerInterface objects");
-            }
-
-            $this->handlers[$h->getSupportedFormat()] = $h;
-        }
-    }
+    private $handlers = [];
 
     /**
      * {@inheritdoc}
@@ -66,5 +55,27 @@ class Serializer implements SerializerInterface
         /** @var $handler HandlerInterface */
         $handler = $this->handlers[$handler];
         return $handler->deserialize($data, $type);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function registerHandlers(array $handlers)
+    {
+        foreach ($handlers as $h) {
+            if (!$h instanceof HandlerInterface) {
+                throw new \InvalidArgumentException("\$handlers must be an array of HandlerInterface objects");
+            }
+
+            $this->handlers[$h->getSupportedFormat()] = $h;
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSupportedTypes()
+    {
+        return array_keys($this->handlers);
     }
 }

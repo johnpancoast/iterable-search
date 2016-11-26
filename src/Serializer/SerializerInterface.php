@@ -15,9 +15,18 @@ namespace Pancoast\DataProcessor\Serializer;
 interface SerializerInterface
 {
     /**
+     * Get the types the serializer supports
+     *
+     * @return array
+     */
+    public function getSupportedTypes();
+
+    /**
      * Register handlers
      *
-     * @param HandlerInterface[] $handlers An array of HandlerInterface's
+     * @param HandlerInterface[] $handlers
+     *
+     * @return $this
      */
     public function registerHandlers(array $handlers);
 

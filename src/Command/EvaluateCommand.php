@@ -14,6 +14,7 @@ use Pancoast\DataProcessor\Rule\ExpressionRule;
 use Pancoast\DataProcessor\RuleHandler;
 use Pancoast\DataProcessor\RuleHandlerInterface;
 use Pancoast\DataProcessor\RuleResult\OutputterRuleResult;
+use Pancoast\DataProcessor\Serializer\Format;
 use Pancoast\DataProcessor\Serializer\SerializerFactory;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
@@ -83,8 +84,8 @@ class EvaluateCommand extends BaseCommand
             ->addArgument(
                 "output_format",
                 InputArgument::OPTIONAL,
-                "Output format (csv, json, xml)",
-                "csv"
+                sprintf("Output format. Available: %s", implode(', ', Format::getFormats())),
+                Format::CSV
             )
         ;
 
@@ -169,7 +170,7 @@ class EvaluateCommand extends BaseCommand
      * @param string $format
      * @return FileProvider
      */
-    private function createFileProvider($format = 'csv')
+    private function createFileProvider($format = Format::CSV)
     {
         $provider = new FileProvider($this->arguments['input_csv'], 'r');
         $provider

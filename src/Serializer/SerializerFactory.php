@@ -33,6 +33,8 @@ class SerializerFactory
 
         $jmsSerializer = SerializerBuilder::create()->build();
 
+        // wrap jms.
+        //
         // loading things this way allows us to have a similar API to jms/serializer
         // but it allows us to "bolt-on" our csv functionality. jms/serializer
         // doesn't support csv and adding a handler within their boundaries wasn't

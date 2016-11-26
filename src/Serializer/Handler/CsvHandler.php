@@ -8,6 +8,7 @@
 namespace Pancoast\DataProcessor\Serializer\Handler;
 
 use JMS\Serializer\SerializerInterface;
+use Pancoast\DataProcessor\Serializer\Format;
 
 /**
  * Csv Handler
@@ -64,7 +65,7 @@ class CsvHandler extends AbstractJmsHandler
      */
     public function getSupportedFormat()
     {
-        return 'csv';
+        return Format::CSV;
     }
 
     /**

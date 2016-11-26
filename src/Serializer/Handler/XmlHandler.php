@@ -7,6 +7,8 @@
 
 namespace Pancoast\DataProcessor\Serializer\Handler;
 
+use Pancoast\DataProcessor\Serializer\Format;
+
 /**
  * Xml Handler
  *
@@ -19,6 +21,6 @@ class XmlHandler extends AbstractJmsHandler
      */
     public function getSupportedFormat()
     {
-        return 'xml';
+        return Format::XML;
     }
 }
