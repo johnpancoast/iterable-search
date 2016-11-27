@@ -60,6 +60,8 @@ class CsvCommand extends BaseCommand
     const OPT_OUT_FORMAT_S = 'f';
     const OPT_CFG_FILE = 'config-file';
     const OPT_CFG_FILE_S = 'c';
+    const OPT_SKIP_FIRST = 'skip-first';
+    const OPT_SKIP_FIRST_S = 'x';
     const OPT_EXPR = 'expr'; // N'th expression
     const OPT_EXPR_S = 'e';
     const OPT_OUT = 'out'; // N'th output
@@ -88,7 +90,13 @@ class CsvCommand extends BaseCommand
                 self::OPT_FILE,
                 self::OPT_FILE_S,
                 InputOption::VALUE_REQUIRED,
-                "A csv file containing data to iterate"
+                "A csv file containing rows to iterate"
+            )
+            ->addOption(
+                self::OPT_SKIP_FIRST,
+                self::OPT_SKIP_FIRST_S,
+                InputOption::VALUE_NONE,
+                "Skip first line of csv"
             )
             ->addOption(
                 self::OPT_DATA_CLASS,
@@ -152,7 +160,13 @@ class CsvCommand extends BaseCommand
      */
     protected function executeCmd()
     {
-        $this->createProcessor()->process();
+        $skip = [];
+
+        if ($this->input->getOption(self::OPT_SKIP_FIRST)) {
+            $skip = [1];
+        }
+
+        $this->createProcessor()->process($skip);
     }
 
     /**

@@ -41,8 +41,12 @@ interface DataProcessorInterface
     /**
      * Process data by running each of the rule handlers against each iteration of data from the provider.
      *
+     * @param array|int[] $skipIterations Array of integers representing iterations to skip, 1'th based, not 0'th.
+     *                                    First iteration is 1, as to say: "the first row".
+     * @return mixed
+     *
      * @throws RuleException Exception for a failing rule
      * @throws RuleResultException Exception for a failing rule result
      */
-    public function process();
+    public function process(array $skipIterations = []);
 }

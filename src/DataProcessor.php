@@ -44,15 +44,24 @@ class DataProcessor implements DataProcessorInterface
     /**
      * {@inheritdoc}
      */
-    public function process()
+    public function process(array $skipIterations = [])
     {
         $this->validateRuleHandlers();
 
-        foreach ($this->dataProvider as $iteration) {
-            if (empty($iteration)) {
+        // Skip iterations
+        $skipIterations = array_combine($skipIterations, $skipIterations);
+
+        $iteration = 0;
+
+        foreach ($this->dataProvider as $data) {
+            $iteration++;
+
+            // skip empty data or if specified to be skipped
+            if (empty($data) || isset($skipIterations[$iteration])) {
                 continue;
             }
 
+            // current iteration, deserialized
             $obj = $this->dataProvider->deserialized();
 
             foreach ($this->ruleHandlers as $ruleHandler) {
