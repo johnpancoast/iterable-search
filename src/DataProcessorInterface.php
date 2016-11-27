@@ -13,6 +13,9 @@ use Pancoast\DataProcessor\Exception\RuleResultException;
 /**
  * Data processor iterates a data provider and deserializes each iteration to a type specified, then runs rule handlers.
  *
+ * The processor is the main interface that outsiders interact with so this is probably unnecessary so this interface
+ * probably doesn't need to be around. Also doesn't hurt to leave it.
+ *
  * @author John Pancoast <johnpancoaster@gmail.com>
  */
 interface DataProcessorInterface
