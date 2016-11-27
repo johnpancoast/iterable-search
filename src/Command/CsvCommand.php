@@ -20,6 +20,7 @@ use Symfony\Component\Console\Exception\InvalidOptionException;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\StreamOutput;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -50,19 +51,19 @@ class CsvCommand extends BaseCommand
      * Command option names. Helps avoid bugs and assists changes.
      */
     const OPT_FILE = 'file';
-    const OPT_FILE_S = 'f';
+    const OPT_FILE_S = 'i';
     const OPT_DATA_CLASS = 'data-class';
     const OPT_DATA_CLASS_S = 'd';
     const OPT_EXPR_ROOT = 'expr-root';
     const OPT_EXPR_ROOT_S = 'r';
     const OPT_OUT_FORMAT = 'out-format';
-    const OPT_OUT_FORMAT_S = 'o';
+    const OPT_OUT_FORMAT_S = 'f';
     const OPT_CFG_FILE = 'config-file';
     const OPT_CFG_FILE_S = 'c';
-    // these don't receive short options (*_S above) because console
-    // doesn't allow multi-char short opts by default
-    const OPT_EXPR_PREFIX = 'expr'; // prefix for N'th expression
-    const OPT_EXPR_OUT_PREFIX = 'out'; // prefix for N'th output
+    const OPT_EXPR = 'expr'; // N'th expression
+    const OPT_EXPR_S = 'e';
+    const OPT_OUT = 'out'; // N'th output
+    const OPT_OUT_S = 's';
 
     /**
      * {@inheritdoc}
@@ -100,7 +101,7 @@ class CsvCommand extends BaseCommand
                 self::OPT_EXPR_ROOT,
                 self::OPT_EXPR_ROOT_S,
                 InputOption::VALUE_REQUIRED,
-                "The root of the data you specify for using expression language (e.g., The expression 'post.created_by' has root of 'post'))"
+                "The key you will use to target your data-class object in expressions (e.g., The expression 'post.created_by == \"john\"' has expression root 'post'))"
             )
             ->addOption(
                 self::OPT_OUT_FORMAT,
@@ -113,28 +114,21 @@ class CsvCommand extends BaseCommand
                 self::OPT_CFG_FILE,
                 self::OPT_CFG_FILE_S,
                 InputOption::VALUE_REQUIRED,
-                "A yaml config file holding command options values. Useful for shortening your CLI commands. Values passed in CLI take precedence."
+                "A yaml config file holding command option values. Useful for shortening your CLI commands. Arguments passed in CLI take precedence."
+            )
+            ->addOption(
+                self::OPT_EXPR,
+                null,
+                InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
+                "N'th expression"
+            )
+            ->addOption(
+                self::OPT_OUT,
+                null,
+                InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
+                "N'th output where iteration goes if respective N'th expression is true"
             )
         ;
-
-        // due to symfony console not having the ability to add dynamic options, we just add a bunch of options
-        // TODO fix - this implies that each expression will have exactly one output if true which works for a lot of
-        //      cases but not all, so fix
-        for ($i = 0; $i < self::RULE_OPTION_AMT; $i++) {
-            $this->addOption(
-                sprintf("%s%s", self::OPT_EXPR_PREFIX, $i),
-                null,
-                InputOption::VALUE_OPTIONAL,
-                "N'th expression"
-            );
-
-            $this->addOption(
-                sprintf("%s%s", self::OPT_EXPR_OUT_PREFIX, $i),
-                null,
-                InputOption::VALUE_OPTIONAL,
-                "N'th output"
-            );
-        }
     }
 
     /**
@@ -148,6 +142,7 @@ class CsvCommand extends BaseCommand
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
         parent::initialize($input, $output);
+
         $this->loadConfigFile();
         $this->validateRequiredOptions();
     }
@@ -197,26 +192,66 @@ class CsvCommand extends BaseCommand
      */
     private function createRuleHandlers()
     {
+        // return
         $handlers = [];
 
-        for ($i = 0; $i < self::RULE_OPTION_AMT; $i++) {
-            $ekey = sprintf('%s%s', self::OPT_EXPR_PREFIX, $i);
-            $okey = sprintf('%s%s', self::OPT_EXPR_OUT_PREFIX, $i);
+        $expressions = $this->input->getOption(self::OPT_EXPR);
+        $expressions = is_array($expressions) ? $expressions : [];
 
-            if (!$this->input->getOption($ekey)) {
-                continue;
+        $outputs = $this->input->getOption(self::OPT_OUT);
+        $outputs = is_array($outputs) ? $outputs : [];
+
+        $eAmt = count($expressions);
+
+        for ($i = 0; $i < $eAmt; $i++) {
+            $expr = isset($expressions[$i]) ? $expressions[$i] : null;
+            $out = isset($outputs[$i]) ? $outputs[$i] : null;
+
+            // no expression, break out of loop
+            if (!$expr) {
+                // output for no expression
+                if ($out) {
+                    $this->output->writeln(sprintf(
+                        "<info>--%s number %s being ignored, no expression</info>",
+                        self::OPT_OUT,
+                        $i
+                    ));
+                }
+
+                break;
             }
 
-            // assume initialization validated that we have both expression and output
-            $exp = $this->input->getOption($ekey);
-            $out = $this->input->hasOption($okey) ? $this->input->getOption($okey) : null;
+            // create output if we received one for this expression. if not, send to STDOUT.
+            if ($out) {
+                $stream = @fopen($out, 'a+');
 
-            // TODO load output based on user's choice, for now its outputting to STDOUT
+                if (!$stream) {
+                    $this->output->writeln(sprintf(
+                        "<error>Failed to open expression output file %s... exiting.</error>",
+                        $out
+                    ));
+                    exit;
+                }
 
+                $output = new StreamOutput($stream);
+            } else {
+                $output = $this->output;
+            }
+
+            // Create rule handlers.
+            // Handlers contain a rule and results which we create from command inputs
             $handlers[] = new RuleHandler(
-                new ExpressionRule($this->exprLang, $exp, $this->input->getOption(self::OPT_EXPR_ROOT)),
+                new ExpressionRule(
+                    $this->exprLang,
+                    $expr,
+                    $this->input->getOption(self::OPT_EXPR_ROOT) // TODO allow per N'th output format
+                ),
                 [
-                    new OutputterRuleResult($this->output, $this->serializer, $this->input->getOption(self::OPT_OUT_FORMAT)),
+                    new OutputterRuleResult(
+                        $output,
+                        $this->serializer,
+                        $this->input->getOption(self::OPT_OUT_FORMAT)
+                    ),
                 ]
             );
         }
