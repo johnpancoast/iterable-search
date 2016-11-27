@@ -17,7 +17,6 @@ use Pancoast\DataProcessor\RuleResult\OutputterRuleResult;
 use Pancoast\DataProcessor\Serializer\Format;
 use Pancoast\DataProcessor\Serializer\SerializerFactory;
 use Symfony\Component\Console\Exception\InvalidOptionException;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -28,7 +27,7 @@ use Symfony\Component\Yaml\Yaml;
  *
  * @author John Pancoast <johnpancoaster@gmail.com>
  */
-class EvaluateCommand extends BaseCommand
+class CsvCommand extends BaseCommand
 {
     /**
      * @var \Symfony\Component\ExpressionLanguage\ExpressionLanguage
@@ -43,13 +42,27 @@ class EvaluateCommand extends BaseCommand
     /**
      * Amount of rule options we allow
      */
-    const RULE_OPTION_AMT = 10;
+    const RULE_OPTION_AMT = 5;
 
     /**
-     * Keys for the N'th expression and output command options
+     * OPT_*
+     *
+     * Command option names. Helps avoid bugs and assists changes.
      */
-    const EXPRESSION_OPTION_KEY = 'expr';
-    const OUTPUT_OPTION_KEY = 'out';
+    const OPT_FILE = 'file';
+    const OPT_FILE_S = 'f';
+    const OPT_DATA_CLASS = 'data-class';
+    const OPT_DATA_CLASS_S = 'd';
+    const OPT_EXPR_ROOT = 'expr-root';
+    const OPT_EXPR_ROOT_S = 'r';
+    const OPT_OUT_FORMAT = 'out-format';
+    const OPT_OUT_FORMAT_S = 'o';
+    const OPT_CFG_FILE = 'config-file';
+    const OPT_CFG_FILE_S = 'c';
+    // these don't receive short options (*_S above) because console
+    // doesn't allow multi-char short opts by default
+    const OPT_EXPR_PREFIX = 'expr'; // prefix for N'th expression
+    const OPT_EXPR_OUT_PREFIX = 'out'; // prefix for N'th output
 
     /**
      * {@inheritdoc}
@@ -68,36 +81,37 @@ class EvaluateCommand extends BaseCommand
     protected function configure()
     {
         $this
-            ->setName("evaluate")
-            ->setDescription("Evaluate rules against iterations of data and do something if true")
+            ->setName('csv')
+            ->setDescription("Iterate over csv data and filter it to various outputs based on rules you specify.")
             ->addOption(
-                "input-csv",
-                null,
+                self::OPT_FILE,
+                self::OPT_FILE_S,
                 InputOption::VALUE_REQUIRED,
                 "A csv file containing data to iterate"
             )
             ->addOption(
-                "data-class",
-                null,
+                self::OPT_DATA_CLASS,
+                self::OPT_DATA_CLASS_S,
                 InputOption::VALUE_REQUIRED,
-                "The class that each iteration will be de-serialized to"
+                "A class you define that represents one iteration of the csv you're iterating. It should contain\n" .
+                "jms/serializer annotations for it to be validated and (de)serialized.\n"
             )
             ->addOption(
-                "expr-root",
-                null,
+                self::OPT_EXPR_ROOT,
+                self::OPT_EXPR_ROOT_S,
                 InputOption::VALUE_REQUIRED,
                 "The root of the data you specify for using expression language (e.g., The expression 'post.created_by' has root of 'post'))"
             )
             ->addOption(
-                "output-format",
-                null,
+                self::OPT_OUT_FORMAT,
+                self::OPT_OUT_FORMAT_S,
                 InputOption::VALUE_REQUIRED,
                 sprintf("Output format. Available: %s", implode(', ', Format::getFormats())),
                 Format::CSV
             )
             ->addOption(
-                "config-path",
-                "c",
+                self::OPT_CFG_FILE,
+                self::OPT_CFG_FILE_S,
                 InputOption::VALUE_REQUIRED,
                 "A yaml config file holding command options values. Useful for shortening your CLI commands. Values passed in CLI take precedence."
             )
@@ -108,14 +122,14 @@ class EvaluateCommand extends BaseCommand
         //      cases but not all, so fix
         for ($i = 0; $i < self::RULE_OPTION_AMT; $i++) {
             $this->addOption(
-                sprintf("%s%s", self::EXPRESSION_OPTION_KEY, $i),
+                sprintf("%s%s", self::OPT_EXPR_PREFIX, $i),
                 null,
                 InputOption::VALUE_OPTIONAL,
                 "N'th expression"
             );
 
             $this->addOption(
-                sprintf("%s%s", self::OUTPUT_OPTION_KEY, $i),
+                sprintf("%s%s", self::OPT_EXPR_OUT_PREFIX, $i),
                 null,
                 InputOption::VALUE_OPTIONAL,
                 "N'th output"
@@ -136,25 +150,6 @@ class EvaluateCommand extends BaseCommand
         parent::initialize($input, $output);
         $this->loadConfigFile();
         $this->validateRequiredOptions();
-    }
-
-    /**
-     * Load config file
-     */
-    private function loadConfigFile()
-    {
-        if (!$path = $this->input->getOption('config-path')) {
-            return;
-        }
-
-        $config = Yaml::parse(file_get_contents($path));
-
-        // Note that command argument values take precedence over those in config
-        foreach ($config as $k => $v) {
-            if (!$this->input->getOption($k)) {
-                $this->input->setOption($k, $v);
-            }
-        }
     }
 
     /**
@@ -186,9 +181,9 @@ class EvaluateCommand extends BaseCommand
      */
     private function createFileProvider($format = Format::CSV)
     {
-        $provider = new FileProvider($this->input->getOption('input-csv'), 'r');
+        $provider = new FileProvider($this->input->getOption(self::OPT_FILE), 'r');
         $provider
-            ->setClassName($this->input->getOption('data-class'))
+            ->setClassName($this->input->getOption(self::OPT_DATA_CLASS))
             ->setFormat($format)
             ->setSerializer(SerializerFactory::createSerializer());
 
@@ -205,8 +200,8 @@ class EvaluateCommand extends BaseCommand
         $handlers = [];
 
         for ($i = 0; $i < self::RULE_OPTION_AMT; $i++) {
-            $ekey = sprintf('%s%s', self::EXPRESSION_OPTION_KEY, $i);
-            $okey = sprintf('%s%s', self::OUTPUT_OPTION_KEY, $i);
+            $ekey = sprintf('%s%s', self::OPT_EXPR_PREFIX, $i);
+            $okey = sprintf('%s%s', self::OPT_EXPR_OUT_PREFIX, $i);
 
             if (!$this->input->getOption($ekey)) {
                 continue;
@@ -219,9 +214,9 @@ class EvaluateCommand extends BaseCommand
             // TODO load output based on user's choice, for now its outputting to STDOUT
 
             $handlers[] = new RuleHandler(
-                new ExpressionRule($this->exprLang, $exp, $this->input->getOption('expr-root')),
+                new ExpressionRule($this->exprLang, $exp, $this->input->getOption(self::OPT_EXPR_ROOT)),
                 [
-                    new OutputterRuleResult($this->output, $this->serializer, $this->input->getOption('output-format')),
+                    new OutputterRuleResult($this->output, $this->serializer, $this->input->getOption(self::OPT_OUT_FORMAT)),
                 ]
             );
         }
@@ -240,10 +235,10 @@ class EvaluateCommand extends BaseCommand
     private function getRequiredOptions()
     {
         return [
-            'input-csv',
-            'data-class',
-            'expr-root',
-            'output-format'
+            self::OPT_FILE,
+            self::OPT_DATA_CLASS,
+            self::OPT_EXPR_ROOT,
+            self::OPT_OUT_FORMAT
         ];
     }
 
@@ -257,6 +252,25 @@ class EvaluateCommand extends BaseCommand
         foreach ($this->getRequiredOptions() as $o) {
             if (!$this->input->hasOption($o) || !$this->input->getOption($o)) {
                 throw new InvalidOptionException(sprintf("Missing required option '%s'", $o));
+            }
+        }
+    }
+
+    /**
+     * Load config file
+     */
+    private function loadConfigFile()
+    {
+        if (!$path = $this->input->getOption(self::OPT_CFG_FILE)) {
+            return;
+        }
+
+        $config = Yaml::parse(file_get_contents($path));
+
+        // Note that command argument values take precedence over those in config
+        foreach ($config as $k => $v) {
+            if (!$this->input->getOption($k)) {
+                $this->input->setOption($k, $v);
             }
         }
     }
