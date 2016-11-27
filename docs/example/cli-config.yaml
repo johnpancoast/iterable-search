@@ -1,0 +1,5 @@
+#file: PATH/TO/data-processor/docs/example/animals.csv
+file: /Users/johnpancoast/Code/me/data-processor/docs/example/animals.csv
+data-class: "YourNamespace\\Animal"
+expr-root: a
+skip-first: true

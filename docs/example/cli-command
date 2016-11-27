@@ -1,0 +1,13 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__ . '/../../vendor/autoload.php';
+
+// This line is only required for this example.
+// You won't need to do this since your command will already contain your namespace if you require
+// your vendor autoloader (line above).
+require_once __DIR__ . '/Animal.php';
+
+use Pancoast\DataProcessor\ConsoleHelper;
+
+ConsoleHelper::createAndLoad()->run();
