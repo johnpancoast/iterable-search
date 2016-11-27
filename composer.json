@@ -1,5 +1,6 @@
 {
   "name": "johnpancoast/data-processor",
+  "license": "MIT",
   "require": {
     "symfony/console": "~3.1",
     "symfony/yaml": "~3.1",
