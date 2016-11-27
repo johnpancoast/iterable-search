@@ -58,7 +58,7 @@ class CsvCommand extends BaseCommand
     const OPT_EXPR_ROOT_S = 'r';
     const OPT_OUT_FORMAT = 'out-format';
     const OPT_OUT_FORMAT_S = 'f';
-    const OPT_CFG_FILE = 'config-file';
+    const OPT_CFG_FILE = 'config';
     const OPT_CFG_FILE_S = 'c';
     const OPT_SKIP_FIRST = 'skip-first';
     const OPT_SKIP_FIRST_S = 'x';
