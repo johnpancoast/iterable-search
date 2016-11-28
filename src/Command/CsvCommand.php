@@ -56,7 +56,7 @@ class CsvCommand extends BaseCommand
     const OPT_DATA_CLASS_S = 'd';
     const OPT_EXPR_ROOT = 'expr-root';
     const OPT_EXPR_ROOT_S = 'r';
-    const OPT_OUT_FORMAT = 'out-format';
+    const OPT_OUT_FORMAT = 'output-format';
     const OPT_OUT_FORMAT_S = 'f';
     const OPT_CFG_FILE = 'config';
     const OPT_CFG_FILE_S = 'c';
@@ -93,12 +93,6 @@ class CsvCommand extends BaseCommand
                 "A csv file containing rows to iterate"
             )
             ->addOption(
-                self::OPT_SKIP_FIRST,
-                self::OPT_SKIP_FIRST_S,
-                InputOption::VALUE_NONE,
-                "Skip first line of csv"
-            )
-            ->addOption(
                 self::OPT_DATA_CLASS,
                 self::OPT_DATA_CLASS_S,
                 InputOption::VALUE_REQUIRED,
@@ -110,13 +104,6 @@ class CsvCommand extends BaseCommand
                 self::OPT_EXPR_ROOT_S,
                 InputOption::VALUE_REQUIRED,
                 "The key you will use to target your data-class object in expressions (e.g., The expression 'post.created_by == \"john\"' has expression root 'post'))"
-            )
-            ->addOption(
-                self::OPT_OUT_FORMAT,
-                self::OPT_OUT_FORMAT_S,
-                InputOption::VALUE_REQUIRED,
-                sprintf("Output format. Available: %s", implode(', ', Format::getFormats())),
-                Format::CSV
             )
             ->addOption(
                 self::OPT_CFG_FILE,
@@ -135,6 +122,19 @@ class CsvCommand extends BaseCommand
                 null,
                 InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
                 "N'th output where iteration goes if respective N'th expression is true"
+            )
+            ->addOption(
+                self::OPT_SKIP_FIRST,
+                self::OPT_SKIP_FIRST_S,
+                InputOption::VALUE_NONE,
+                "Skip first line of csv"
+            )
+            ->addOption(
+                self::OPT_OUT_FORMAT,
+                self::OPT_OUT_FORMAT_S,
+                InputOption::VALUE_REQUIRED,
+                sprintf("Output format. Available: %s", implode(', ', Format::getFormats())),
+                Format::CSV
             )
         ;
     }
