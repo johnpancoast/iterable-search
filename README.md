@@ -1,8 +1,9 @@
-data-processor
-==============
-A lib providing interfaces and tools for "processing" data which, for our case,
-means to iterate data, run rules against each, and output somewhere if the
-rules are true.
+iterable-parser
+===============
+A lib providing interfaces and tools for parsing common iterations of data.
+
+**This was created as a code challenge and also to explore ideas for some tools
+I was thinking of**.
 
 You can use expressions from
 [symfomy/expression-language](http://symfony.com/doc/current/components/expression_language.html)
@@ -11,7 +12,7 @@ which provides a convenient way to filter your data.
 At the moment, only csv files are supported for input. 
 
 # Install
-`composer require johnpancoast/data-processor:~0.1`
+`composer require johnpancoast/iterable-parser:~0`
 
 # Usage
 *All examples here can be seen in `docs/example/`.*
