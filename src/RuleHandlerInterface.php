@@ -5,9 +5,9 @@
  * @license       MIT
  */
 
-namespace Pancoast\DataProcessor;
-use Pancoast\DataProcessor\Exception\RuleException;
-use Pancoast\DataProcessor\Exception\RuleResultException;
+namespace Pancoast\IterableParser;
+use Pancoast\IterableParser\Exception\RuleException;
+use Pancoast\IterableParser\Exception\RuleResultException;
 
 /**
  * A rule handler specifies a rule and what to do if the rule is true

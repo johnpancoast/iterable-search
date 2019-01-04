@@ -5,10 +5,10 @@
  * @license       MIT
  */
 
-namespace Pancoast\DataProcessor;
+namespace Pancoast\IterableParser;
 
-use Pancoast\DataProcessor\Command\Command;
-use Pancoast\DataProcessor\Command\CsvCommand;
+use Pancoast\IterableParser\Command\Command;
+use Pancoast\IterableParser\Command\CsvCommand;
 use Symfony\Component\Console\Application;
 
 /**

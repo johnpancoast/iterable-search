@@ -5,11 +5,10 @@
  * @license       MIT
  */
 
-namespace Pancoast\DataProcessor\Rule;
+namespace Pancoast\IterableParser\Rule;
 
 use Pancoast\Common\Util\Util;
-use Pancoast\DataProcessor\Expression\ExpressionLanguageProvider;
-use Pancoast\DataProcessor\RuleInterface;
+use Pancoast\IterableParser\RuleInterface;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 
 /**

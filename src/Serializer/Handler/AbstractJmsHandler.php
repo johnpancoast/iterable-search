@@ -5,10 +5,10 @@
  * @license       MIT
  */
 
-namespace Pancoast\DataProcessor\Serializer\Handler;
+namespace Pancoast\IterableParser\Serializer\Handler;
 
 use JMS\Serializer\SerializerInterface;
-use Pancoast\DataProcessor\Serializer\HandlerInterface;
+use Pancoast\IterableParser\Serializer\HandlerInterface;
 
 /**
  * An abstract handler for those that can delegate to jms/serializer

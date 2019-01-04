@@ -5,7 +5,7 @@
  * @license       MIT
  */
 
-namespace Pancoast\DataProcessor\Serializer;
+namespace Pancoast\IterableParser\Serializer;
 
 /**
  * Serializer

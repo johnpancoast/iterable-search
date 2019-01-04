@@ -5,9 +5,9 @@
  * @license       MIT
  */
 
-namespace Pancoast\DataProcessor\Serializer\Handler;
+namespace Pancoast\IterableParser\Serializer\Handler;
 
-use Pancoast\DataProcessor\Serializer\Format;
+use Pancoast\IterableParser\Serializer\Format;
 
 /**
  * Xml Handler

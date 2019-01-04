@@ -5,7 +5,7 @@
  * @license       MIT
  */
 
-namespace Pancoast\DataProcessor\Exception;
+namespace Pancoast\IterableParser\Exception;
 
 /**
  * Exception called when a rule result call fails

@@ -5,10 +5,10 @@
  * @license       MIT
  */
 
-namespace Pancoast\DataProcessor\Serializer\Handler;
+namespace Pancoast\IterableParser\Serializer\Handler;
 
 use JMS\Serializer\SerializerInterface;
-use Pancoast\DataProcessor\Serializer\Format;
+use Pancoast\IterableParser\Serializer\Format;
 
 /**
  * Csv Handler

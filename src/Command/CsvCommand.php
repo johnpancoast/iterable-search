@@ -5,17 +5,17 @@
  * @license       MIT
  */
 
-namespace Pancoast\DataProcessor\Command;
+namespace Pancoast\IterableParser\Command;
 
-use Pancoast\DataProcessor\DataProcessor;
-use Pancoast\DataProcessor\DataProvider\FileProvider;
-use Pancoast\DataProcessor\Expression\ExpressionLanguageFactory;
-use Pancoast\DataProcessor\Rule\ExpressionRule;
-use Pancoast\DataProcessor\RuleHandler;
-use Pancoast\DataProcessor\RuleHandlerInterface;
-use Pancoast\DataProcessor\RuleResult\OutputterRuleResult;
-use Pancoast\DataProcessor\Serializer\Format;
-use Pancoast\DataProcessor\Serializer\SerializerFactory;
+use Pancoast\IterableParser\DataProcessor;
+use Pancoast\IterableParser\DataProvider\FileProvider;
+use Pancoast\IterableParser\Expression\ExpressionLanguageFactory;
+use Pancoast\IterableParser\Rule\ExpressionRule;
+use Pancoast\IterableParser\RuleHandler;
+use Pancoast\IterableParser\RuleHandlerInterface;
+use Pancoast\IterableParser\RuleResult\OutputterRuleResult;
+use Pancoast\IterableParser\Serializer\Format;
+use Pancoast\IterableParser\Serializer\SerializerFactory;
 use Symfony\Component\Console\Exception\InvalidOptionException;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;

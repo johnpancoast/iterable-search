@@ -5,9 +5,9 @@
  * @license       MIT
  */
 
-namespace Pancoast\DataProcessor;
+namespace Pancoast\IterableParser;
 
-use Pancoast\DataProcessor\Exception\RuleResultException;
+use Pancoast\IterableParser\Exception\RuleResultException;
 
 /**
  * A rule result is what happens after a rule passes

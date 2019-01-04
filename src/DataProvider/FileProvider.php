@@ -5,10 +5,10 @@
  * @license       MIT
  */
 
-namespace Pancoast\DataProcessor\DataProvider;
+namespace Pancoast\IterableParser\DataProvider;
 
-use Pancoast\DataProcessor\DataProviderInterface;
-use Pancoast\DataProcessor\DataProviderTrait;
+use Pancoast\IterableParser\DataProviderInterface;
+use Pancoast\IterableParser\DataProviderTrait;
 
 /**
  * File provider

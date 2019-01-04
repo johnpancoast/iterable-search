@@ -5,9 +5,9 @@
  * @license       MIT
  */
 
-namespace Pancoast\DataProcessor;
+namespace Pancoast\IterableParser;
 
-use Pancoast\DataProcessor\Exception\RuleException;
+use Pancoast\IterableParser\Exception\RuleException;
 
 /**
  * Rule handler evaluates a rule against a value and runs results if true

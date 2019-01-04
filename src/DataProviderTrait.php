@@ -5,10 +5,10 @@
  * @license       MIT
  */
 
-namespace Pancoast\DataProcessor;
+namespace Pancoast\IterableParser;
 
 use Pancoast\Common\Util\Util;
-use Pancoast\DataProcessor\Serializer\SerializerInterface;
+use Pancoast\IterableParser\Serializer\SerializerInterface;
 
 /**
  * Data provider trait

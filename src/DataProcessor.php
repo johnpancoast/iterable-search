@@ -5,12 +5,12 @@
  * @license       MIT
  */
 
-namespace Pancoast\DataProcessor;
+namespace Pancoast\IterableParser;
 
-use Pancoast\DataProcessor\Exception\RuleException;
-use Pancoast\DataProcessor\Exception\RuleResultException;
-use Pancoast\DataProcessor\Exception\UnknownRuleHandlerException;
-use Pancoast\DataProcessor\Serializer\SerializerInterface;
+use Pancoast\IterableParser\Exception\RuleException;
+use Pancoast\IterableParser\Exception\RuleResultException;
+use Pancoast\IterableParser\Exception\UnknownRuleHandlerException;
+use Pancoast\IterableParser\Serializer\SerializerInterface;
 
 /**
  * Abstract data processor
@@ -119,7 +119,7 @@ class DataProcessor implements DataProcessorInterface
             if (!$ruleHandler instanceof RuleHandlerInterface) {
                 throw new UnknownRuleHandlerException(
                     sprintf(
-                        'Rule handlers must be instances of \Pancoast\DataProcessor\RuleHandlerInterface. Received %s',
+                        'Rule handlers must be instances of \Pancoast\IterableParser\RuleHandlerInterface. Received %s',
                         gettype($ruleHandler)
                     )
                 );

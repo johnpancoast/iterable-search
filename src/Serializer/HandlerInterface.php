@@ -6,7 +6,7 @@
  */
 
 
-namespace Pancoast\DataProcessor\Serializer;
+namespace Pancoast\IterableParser\Serializer;
 
 /**
  * A serializer handler handles serialization (doy)

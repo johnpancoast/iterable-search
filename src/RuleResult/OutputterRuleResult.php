@@ -5,11 +5,11 @@
  * @license       MIT
  */
 
-namespace Pancoast\DataProcessor\RuleResult;
+namespace Pancoast\IterableParser\RuleResult;
 
 use Pancoast\Common\Util\Util;
-use Pancoast\DataProcessor\AbstractRuleResult;
-use Pancoast\DataProcessor\Serializer\SerializerInterface;
+use Pancoast\IterableParser\AbstractRuleResult;
+use Pancoast\IterableParser\Serializer\SerializerInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**

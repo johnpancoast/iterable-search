@@ -5,7 +5,7 @@
  * @license       MIT
  */
 
-namespace Pancoast\DataProcessor\Command;
+namespace Pancoast\IterableParser\Command;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

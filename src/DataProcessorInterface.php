@@ -5,10 +5,10 @@
  * @license       MIT
  */
 
-namespace Pancoast\DataProcessor;
+namespace Pancoast\IterableParser;
 
-use Pancoast\DataProcessor\Exception\RuleException;
-use Pancoast\DataProcessor\Exception\RuleResultException;
+use Pancoast\IterableParser\Exception\RuleException;
+use Pancoast\IterableParser\Exception\RuleResultException;
 
 /**
  * Data processor iterates a data provider and deserializes each iteration to a type specified, then runs rule handlers.

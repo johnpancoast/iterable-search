@@ -5,7 +5,7 @@
  * @license       MIT
  */
 
-namespace Pancoast\DataProcessor;
+namespace Pancoast\IterableParser;
 
 /**
  * A rule for a value

@@ -5,14 +5,14 @@
  * @license       MIT
  */
 
-namespace Pancoast\DataProcessor\Serializer;
+namespace Pancoast\IterableParser\Serializer;
 
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use JMS\Serializer\SerializerBuilder;
-use Pancoast\DataProcessor\Serializer\Handler\CsvHandler;
-use Pancoast\DataProcessor\Serializer\Handler\JsonHandler;
-use Pancoast\DataProcessor\Serializer\Handler\XmlHandler;
-use Pancoast\DataProcessor\Serializer\Handler\YamlHandler;
+use Pancoast\IterableParser\Serializer\Handler\CsvHandler;
+use Pancoast\IterableParser\Serializer\Handler\JsonHandler;
+use Pancoast\IterableParser\Serializer\Handler\XmlHandler;
+use Pancoast\IterableParser\Serializer\Handler\YamlHandler;
 
 /**
  * Factory to create serializer

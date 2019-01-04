@@ -5,8 +5,8 @@
  * @license       MIT
  */
 
-namespace Pancoast\DataProcessor;
-use Pancoast\DataProcessor\Serializer\SerializerInterface;
+namespace Pancoast\IterableParser;
+use Pancoast\IterableParser\Serializer\SerializerInterface;
 
 /**
  * A data provider is an iterator that can deserialize each iteration into an object

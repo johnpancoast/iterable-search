@@ -5,7 +5,7 @@
  * @license       MIT
  */
 
-namespace Pancoast\DataProcessor\Expression;
+namespace Pancoast\IterableParser\Expression;
 
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 
