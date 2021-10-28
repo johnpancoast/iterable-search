@@ -13,7 +13,7 @@ use Pancoast\IterableParser\Serializer\HandlerInterface;
 /**
  * An abstract handler for those that can delegate to jms/serializer
  *
- * @author John Pancoast <johnpancoaster@gmail.com>
+ * @author John Pancoast <johnpancoast.tech@gmail.com>
  */
 abstract class AbstractJmsHandler implements HandlerInterface
 {

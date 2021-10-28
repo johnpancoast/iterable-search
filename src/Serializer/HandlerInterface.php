@@ -11,7 +11,7 @@ namespace Pancoast\IterableParser\Serializer;
 /**
  * A serializer handler handles serialization (doy)
  *
- * @author John Pancoast <johnpancoaster@gmail.com>
+ * @author John Pancoast <johnpancoast.tech@gmail.com>
  */
 interface HandlerInterface
 {

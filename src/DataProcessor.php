@@ -15,7 +15,7 @@ use Pancoast\IterableParser\Serializer\SerializerInterface;
 /**
  * Abstract data processor
  *
- * @author John Pancoast <johnpancoaster@gmail.com>
+ * @author John Pancoast <johnpancoast.tech@gmail.com>
  */
 class DataProcessor implements DataProcessorInterface
 {

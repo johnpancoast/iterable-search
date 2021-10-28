@@ -15,7 +15,7 @@ use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
  * A rule for symfony/expression-language.
  *
  * @see http://symfony.com/doc/current/components/expression_language.html
- * @author John Pancoast <johnpancoaster@gmail.com>
+ * @author John Pancoast <johnpancoast.tech@gmail.com>
  */
 class ExpressionRule implements RuleInterface
 {

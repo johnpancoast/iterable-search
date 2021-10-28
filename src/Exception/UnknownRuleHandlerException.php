@@ -10,7 +10,7 @@ namespace Pancoast\IterableParser\Exception;
 /**
  * Unknown rule handler exception
  *
- * @author John Pancoast <johnpancoaster@gmail.com>
+ * @author John Pancoast <johnpancoast.tech@gmail.com>
  */
 class UnknownRuleHandlerException extends \Exception
 {

@@ -14,7 +14,7 @@ use Pancoast\IterableParser\Exception\RuleResultException;
  *
  * Mainly here to ensure that RuleException is thrown for caught exceptions of child objects
  *
- * @author John Pancoast <johnpancoaster@gmail.com>
+ * @author John Pancoast <johnpancoast.tech@gmail.com>
  */
 abstract class AbstractRuleResult implements RuleResultInterface
 {

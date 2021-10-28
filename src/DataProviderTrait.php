@@ -16,7 +16,7 @@ use Pancoast\IterableParser\Serializer\SerializerInterface;
  * This is here as a trait instead of a base class so that your providers can extend whatever class they'd like while
  * still sticking to the interface and using this available functionality.
  *
- * @author John Pancoast <johnpancoaster@gmail.com>
+ * @author John Pancoast <johnpancoast.tech@gmail.com>
  */
 trait DataProviderTrait
 {

@@ -13,7 +13,7 @@ namespace Pancoast\IterableParser;
  * The rule itself is implementation specific and the self::true($value) method should return if
  * the value passes the rule.
  *
- * @author John Pancoast <johnpancoaster@gmail.com>
+ * @author John Pancoast <johnpancoast.tech@gmail.com>
  */
 interface RuleInterface
 {

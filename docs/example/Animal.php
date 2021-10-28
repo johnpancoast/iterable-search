@@ -10,7 +10,7 @@ namespace YourNamespace;
 use JMS\Serializer\Annotation as JMS;
 
 /**
- * @author John Pancoast <johnpancoaster@gmail.com>
+ * @author John Pancoast <johnpancoast.tech@gmail.com>
  *
  * @see animals.csv
  * @JMS\ExclusionPolicy("all")

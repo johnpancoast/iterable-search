@@ -15,7 +15,7 @@ use Pancoast\IterableParser\Serializer\Format;
  *
  * Note that handling CSVs in jms/serializer is not supported so we had to wrap it and handle ourselves
  *
- * @author John Pancoast <johnpancoaster@gmail.com>
+ * @author John Pancoast <johnpancoast.tech@gmail.com>
  */
 class CsvHandler extends AbstractJmsHandler
 {

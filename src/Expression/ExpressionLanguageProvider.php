@@ -15,7 +15,7 @@ use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
  *
  * Currently used to add callable functions for end user of expression lang.
  *
- * @author John Pancoast <johnpancoaster@gmail.com>
+ * @author John Pancoast <johnpancoast.tech@gmail.com>
  */
 class ExpressionLanguageProvider implements ExpressionFunctionProviderInterface
 {

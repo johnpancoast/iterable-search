@@ -12,7 +12,7 @@ use Pancoast\IterableParser\Exception\RuleResultException;
 /**
  * A rule handler specifies a rule and what to do if the rule is true
  *
- * @author John Pancoast <johnpancoaster@gmail.com>
+ * @author John Pancoast <johnpancoast.tech@gmail.com>
  */
 interface RuleHandlerInterface
 {

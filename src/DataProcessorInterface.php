@@ -16,7 +16,7 @@ use Pancoast\IterableParser\Exception\RuleResultException;
  * The processor is the main interface that outsiders interact with so this is probably unnecessary so this interface
  * probably doesn't need to be around. Also doesn't hurt to leave it.
  *
- * @author John Pancoast <johnpancoaster@gmail.com>
+ * @author John Pancoast <johnpancoast.tech@gmail.com>
  */
 interface DataProcessorInterface
 {

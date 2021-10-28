@@ -10,7 +10,7 @@ namespace Pancoast\IterableParser\Exception;
 /**
  * Exception called when a rule result call fails
  *
- * @author John Pancoast <johnpancoaster@gmail.com>
+ * @author John Pancoast <johnpancoast.tech@gmail.com>
  */
 class RuleResultException extends \Exception
 {

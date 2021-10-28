@@ -12,7 +12,7 @@ use Pancoast\IterableParser\Serializer\Format;
 /**
  * Xml Handler
  *
- * @author John Pancoast <johnpancoaster@gmail.com>
+ * @author John Pancoast <johnpancoast.tech@gmail.com>
  */
 class XmlHandler extends AbstractJmsHandler
 {

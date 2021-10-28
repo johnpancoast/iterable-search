@@ -26,7 +26,7 @@ use Symfony\Component\Yaml\Yaml;
 /**
  * Command to run rules against iterations of data
  *
- * @author John Pancoast <johnpancoaster@gmail.com>
+ * @author John Pancoast <johnpancoast.tech@gmail.com>
  */
 class CsvCommand extends BaseCommand
 {

@@ -12,7 +12,7 @@ namespace Pancoast\IterableParser\Serializer;
  *
  * Note that our serializer calls on our handlers which wrap jms/serializer
  *
- * @author John Pancoast <johnpancoaster@gmail.com>
+ * @author John Pancoast <johnpancoast.tech@gmail.com>
  */
 class Serializer implements SerializerInterface
 {

@@ -11,7 +11,7 @@ use Pancoast\IterableParser\Serializer\SerializerInterface;
 /**
  * A data provider is an iterator that can deserialize each iteration into an object
  *
- * @author John Pancoast <johnpancoaster@gmail.com>
+ * @author John Pancoast <johnpancoast.tech@gmail.com>
  */
 interface DataProviderInterface extends \Iterator
 {

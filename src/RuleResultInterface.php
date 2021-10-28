@@ -12,7 +12,7 @@ use Pancoast\IterableParser\Exception\RuleResultException;
 /**
  * A rule result is what happens after a rule passes
  *
- * @author John Pancoast <johnpancoaster@gmail.com>
+ * @author John Pancoast <johnpancoast.tech@gmail.com>
  */
 interface RuleResultInterface
 {

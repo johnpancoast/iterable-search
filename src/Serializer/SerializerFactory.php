@@ -17,7 +17,7 @@ use Pancoast\IterableParser\Serializer\Handler\YamlHandler;
 /**
  * Factory to create serializer
  *
- * @author John Pancoast <johnpancoaster@gmail.com>
+ * @author John Pancoast <johnpancoast.tech@gmail.com>
  */
 class SerializerFactory
 {

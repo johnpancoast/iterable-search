@@ -10,7 +10,7 @@ namespace Pancoast\IterableParser\Serializer;
 /**
  * Serializes data between formats
  *
- * @author John Pancoast <johnpancoaster@gmail.com>
+ * @author John Pancoast <johnpancoast.tech@gmail.com>
  */
 interface SerializerInterface
 {

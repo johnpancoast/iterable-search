@@ -12,7 +12,7 @@ use Pancoast\IterableParser\Serializer\Format;
 /**
  * Json Handler
  *
- * @author John Pancoast <johnpancoaster@gmail.com>
+ * @author John Pancoast <johnpancoast.tech@gmail.com>
  */
 class JsonHandler extends AbstractJmsHandler
 {

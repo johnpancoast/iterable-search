@@ -15,7 +15,7 @@ use Pancoast\IterableParser\DataProviderTrait;
  *
  * Note that this gives us the ability to iterate file data while still sticking to our contracts
  *
- * @author John Pancoast <johnpancoaster@gmail.com>
+ * @author John Pancoast <johnpancoast.tech@gmail.com>
  */
 class FileProvider extends \SplFileObject implements DataProviderInterface
 {

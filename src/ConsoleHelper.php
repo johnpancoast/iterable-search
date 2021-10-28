@@ -18,7 +18,7 @@ use Symfony\Component\Console\Application;
  * this lib provides.
  *
  * @see http://symfony.com/doc/current/components/console.html
- * @author John Pancoast <johnpancoaster@gmail.com>
+ * @author John Pancoast <johnpancoast.tech@gmail.com>
  */
 class ConsoleHelper
 {

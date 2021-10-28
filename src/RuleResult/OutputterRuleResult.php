@@ -15,7 +15,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Outputter rule result sends the (serialized) $value to the outputter
  *
- * @author John Pancoast <johnpancoaster@gmail.com>
+ * @author John Pancoast <johnpancoast.tech@gmail.com>
  */
 class OutputterRuleResult extends AbstractRuleResult
 {
