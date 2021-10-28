@@ -1,15 +1,24 @@
 iterable-parser
 ===============
-A lib providing interfaces and tools for parsing common iterations of data.
+A lib providing an interfaces and tools for you to create to a command and
+structure for parsing common iterations of data.
 
-**This was created as a code challenge and also to explore ideas for some tools
-I was thinking of**.
 
-You can use expressions from
+_This was created for a code challenge and to explore ideas for some tools I.  -
+was thinking of. It became useful a few times but it is incomplete and at
+version <= 1, so APIs may still change._
+
+## Ideas for future improvement (also see [TODO](#todo)).
+* Simpler CLI API around the APIs here (with possible simplifications).
+* Create a command so it's not required of the
+  user of this lib to create.
+
+Once you've set things up (which is quick), you can use expressions from
 [symfomy/expression-language](http://symfony.com/doc/current/components/expression_language.html)
-which provides a convenient way to filter your data.
+via CLI.
 
-At the moment, only csv files are supported for input. 
+At the moment only csv files are supported for input but it's easy enough to
+add handlers.
 
 # Install
 `composer require johnpancoast/iterable-parser:~0`
@@ -18,7 +27,9 @@ At the moment, only csv files are supported for input.
 *All examples here can be seen in `docs/example/`.*
 
 The first things you should do when using data-processor is to create your CLI
-command that loads this lib's commands. You only need to do this once.
+command that loads this lib's commands. You only need to do this once. **This is
+meant to be improved upon so you don't have to create a command and can just
+include one from the lib.**
 
 `bin/your-cli-command`
 ```php
@@ -59,7 +70,9 @@ class Animal
 
 Note that the properties are public. They don't have to be but this provides flexibility later.
 
-Now let's add `jms/serializer` [annotations](http://jmsyst.com/libs/serializer/master/reference/annotations) so the data can be (de)serialized and validated.
+Now let's add `jms/serializer`
+[annotations](http://jmsyst.com/libs/serializer/master/reference/annotations)
+so the data can be (de)serialized and validated.
 
 ```php
 <?php
@@ -147,6 +160,8 @@ other. Meaning, you can create any number of expression and output pairings
 that each run on their own.
 
 # TODO
+* Simpler CLI API around the APIs here (possible simplifications).
+* Create a command so the user (you) doesn't have to.
 * Tests
 * A new `--group` array option for each `--expr` so that output can be grouped.
 * More commands to input more formats (internally, all formats that the serializer supports are supported... it's just our command that doesn't support more yet).
