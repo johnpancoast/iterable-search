@@ -1,11 +1,12 @@
 iterable-parser
 ===============
-A lib providing an interfaces and tools for you to create to a command and
-structure for parsing common iterations of data.
+A lib providing interfaces and tools for searching through iterations of
+tabular data.
 
+**This was created as a code challenge and also to explore ideas for some tools I was thinking of**.
 
-_This was created for a code challenge and to explore ideas for some tools I.  -
-was thinking of. It became useful a few times but it is incomplete and at
+_This was created for a code challenge and to explore ideas for some tools
+I was thinking of. It became useful a few times but it is incomplete and at
 version <= 1, so APIs may still change._
 
 ## Ideas for future improvement (also see [TODO](#todo)).
