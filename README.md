@@ -1,4 +1,4 @@
-iterable-parser
+iterable-search
 ===============
 A lib providing interfaces and tools for searching through iterations of
 tabular data.
